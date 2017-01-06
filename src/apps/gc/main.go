@@ -4,7 +4,10 @@
 
 package main
 
-import "time"
+import (
+	"fmt"
+	"time"
+)
 
 type Node struct {
 	index   int
@@ -23,6 +26,6 @@ func main() {
 	}()
 	sig, ok := <-exit
 	if sig && ok {
-
+		fmt.Println("This is a change")
 	}
 }

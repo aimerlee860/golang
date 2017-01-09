@@ -51,8 +51,8 @@ func main() {
 	fmt.Println("Finished")
 
 	go func(str string) {
+		defer func() { done <- true }()
 		fmt.Println(str)
-		done <- true
 	}("This is a test for goroutine!")
 
 	sig, ok := <-done

@@ -24,6 +24,25 @@ func init() {
 //     }
 // }
 
+type Action func() error
+
+func Echo() error {
+	return nil
+}
+
+func FuncTest(a Action) {
+	if err := a(); err == nil {
+		fmt.Println("Nil")
+	}
+}
+
+type XXX struct {
+	YYY struct {
+		a string
+		b int
+	}
+}
+
 func main() {
 	done := make(chan bool)
 	fmt.Println("This is a test!")
@@ -60,4 +79,13 @@ func main() {
 		fmt.Println("Everything is done, exit...")
 	}
 	// time.Sleep(time.Second)
+
+	FuncTest(Echo)
+
+	var x XXX
+	fmt.Println(x.YYY.a)
+
+	strs := []string{"1", "2"}
+	strs2 := []string{"3", "4"}
+	fmt.Println(append(strs2, strs...))
 }

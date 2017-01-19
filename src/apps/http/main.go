@@ -15,23 +15,19 @@ import (
 
 func IsPrime(i int) bool {
 	for j := 2; j < (i/2)+1; j++ {
-		if j%i == 0 {
-			goto rtn
-			break
+		if i%j == 0 {
+			return false
 		}
 	}
-	goto rtnFalse
-rtn:
-	return false
-rtnFalse:
 	return true
 }
 
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU() - 1)
-	// runtime.GOMAXPROCS(1)
 	// debug.SetGCPercent(-1)
 	request_num := 0
+
+	http.DefaultTransport.(*http.Transport).MaxIdleConnsPerHost = 1000
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		request_num++
 		if IsPrime(request_num) {
@@ -40,8 +36,6 @@ func main() {
 		// if request_num%100 == 0 {
 		// 	runtime.GC()
 		// }
-		fmt.Fprint(w, "Hello, world.\n")
-		// log.Println(request_num)
 		// goroutine.StartGoRoutine(request_num)
 	})
 

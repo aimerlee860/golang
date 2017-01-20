@@ -10,3 +10,7 @@ import (
 	"github.com/golang/protobuf"
 	"net"
 )
+
+func GitTestFunc() {
+	fmt.Println("This is a test!")
+}

@@ -11,5 +11,6 @@ import (
 	"net"
 )
 
-func TestGit() {
+func GitTestFunc() {
+	fmt.Println("This is a test!")
 }

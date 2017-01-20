@@ -13,4 +13,7 @@ import (
 
 func GitTestFunc() {
 	fmt.Println("This is a test!")
+	fmt.Println("This is a test!")
+	fmt.Println("This is a test!")
+	fmt.Println("This is a test!")
 }

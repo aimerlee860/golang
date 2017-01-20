@@ -10,3 +10,6 @@ import (
 	"github.com/golang/protobuf"
 	"net"
 )
+
+func TestGit() {
+}

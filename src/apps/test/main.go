@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"time"
 	// "log"
+	"reflect"
 )
 
 const (
@@ -17,6 +18,14 @@ const (
 func init() {
 	fmt.Println("Still working for initialization!")
 }
+
+type Funcer interface {
+	Func(string, int) error
+}
+
+type TT struct{}
+
+func (t TT) Func(name string, id int) (err error) { return nil }
 
 // func print_args(args ...interface{}) {
 //     for key, val := range args {
@@ -41,6 +50,14 @@ type XXX struct {
 		a string
 		b int
 	}
+}
+
+func (x *XXX) GetA() string {
+	return x.YYY.a
+}
+
+type MyType struct {
+	Name string
 }
 
 func main() {
@@ -83,9 +100,18 @@ func main() {
 	FuncTest(Echo)
 
 	var x XXX
-	fmt.Println(x.YYY.a)
+	// fmt.Println(x.YYY.a)
+	fmt.Println(x.GetA())
 
 	strs := []string{"1", "2"}
 	strs2 := []string{"3", "4"}
 	fmt.Println(append(strs2, strs...))
+	if _, err := time.Parse("2016-12-22 02:51:37", "2016-02-22 02:51:37"); err != nil {
+		fmt.Println("error ", err)
+	}
+
+	fmt.Println(reflect.TypeOf(MyType{}).NumField())
+
+	main := TT{}
+	main.Func("x", 1)
 }

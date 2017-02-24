@@ -5,9 +5,9 @@
 package main
 
 import (
-    // "os"
-    "fmt"
-    // "time"
+	// "os"
+	"fmt"
+	// "time"
 )
 
 /*
@@ -28,40 +28,53 @@ func timeoutFlush(timeout time.Duration) {
 */
 
 func main() {
-    fmt.Println("This is a test for goroutine!")
-    // timeoutFlush(1000)
-    c := make(chan int, 1)
-    select {
-    case c <- 10:
-        fmt.Println("write 10 into c")
-    default:
-        fmt.Println("Nothing to write")
-    }
+	fmt.Println("This is a test for goroutine!")
+	// timeoutFlush(1000)
+	c := make(chan int, 1)
+	select {
+	case c <- 10:
+		fmt.Println("write 10 into c")
+	default:
+		fmt.Println("Nothing to write")
+	}
 
-    select {
-    case c <- 11:
-        fmt.Println("write 11 into c")
-    default: // c中只有10，没有11
-        fmt.Println("Nothing to write")
-    }
+	select {
+	case c <- 11:
+		fmt.Println("write 11 into c")
+	default: // c中只有10，没有11
+		fmt.Println("Nothing to write")
+	}
 
-    select {
-    case v, ok := <-c:
-        fmt.Println("frist read", v, ok)
-        // 读出来一个，v=10, ok=true
-    default:
-        fmt.Println("Nothing to read")
-    }
+	select {
+	case v, ok := <-c:
+		fmt.Println("frist read", v, ok)
+		// 读出来一个，v=10, ok=true
+	default:
+		fmt.Println("Nothing to read")
+	}
 
-    select {
-    case v, ok := <-c:
-        fmt.Println("second read", v, ok)
-    default: // 没有可读的，走这个分支
-        fmt.Println("Nothing to read")
-    }
+	select {
+	case v, ok := <-c:
+		fmt.Println("second read", v, ok)
+	default: // 没有可读的，走这个分支
+		fmt.Println("Nothing to read")
+	}
 
-    // v, ok := <-c // 从chan中读取
-    // close(c)
-    // v, ok = <-c // 从chan中读取
-    // fmt.Println(v, ok)
+	exit := make(chan bool, 1)
+	var str string = "hello"
+	go func() {
+		inexit := make(chan bool, 1)
+		go func() {
+			fmt.Println(str)
+			inexit <- true
+		}()
+		<-inexit
+		exit <- true
+	}()
+	<-exit
+
+	// v, ok := <-c // 从chan中读取
+	// close(c)
+	// v, ok = <-c // 从chan中读取
+	// fmt.Println(v, ok)
 }

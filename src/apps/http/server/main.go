@@ -5,7 +5,7 @@
 package main
 
 import (
-	"fmt"
+	// "fmt"
 	// "goroutine"
 	"log"
 	"net/http"
@@ -25,19 +25,19 @@ func IsPrime(i int) bool {
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU() - 1)
 	// debug.SetGCPercent(-1)
-	request_num := 0
+	// request_num := 0
 
-	http.DefaultTransport.(*http.Transport).MaxIdleConnsPerHost = 1000
+	// http.DefaultTransport.(*http.Transport).MaxIdleConnsPerHost = 1000
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		request_num++
-		if IsPrime(request_num) {
-			fmt.Printf("%d is prime\n", request_num)
-		}
+		// request_num++
+		// if IsPrime(request_num) {
+		// 	fmt.Printf("%d is prime\n", request_num)
+		// }
 		// if request_num%100 == 0 {
 		// 	runtime.GC()
 		// }
 		// goroutine.StartGoRoutine(request_num)
 	})
 
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":8090", nil))
 }
